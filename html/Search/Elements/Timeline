@@ -42,7 +42,7 @@ function LoadTimeline() {
   bandInfos[2].highlight = true;
 
   tl = Timeline.create(document.getElementById("<%$id%>"), bandInfos, Timeline.HORIZONTAL);
-  tl.loadJSON("<%$RT::WebPath%>/Search/Elements/timeline.js?Query=<%$Query|n%>", function(json, url) { eventSource.loadJSON(json, url); });
+  tl.loadJSON("<%$RT::WebPath%>/NoAuth/timeline.js?Query=<%$Query|n%>", function(json, url) { eventSource.loadJSON(json, url); });
 }
 
 var resizeTimerID = null;
@@ -54,13 +54,11 @@ function ResizeTimeline() {
         }, 500);
     }
 }
-onLoadHook("LoadTimeline()");
+doOnLoad(LoadTimeline);
 </script>
 
 <% $Tickets->CountAll %> Tickets
 <div id="<%$id%>" style="height: <%$height%>; border: 1px solid #aaa"></div>
-
-
 
 <%INIT>
 my $Tickets = RT::Tickets->new( $session{CurrentUser} );
